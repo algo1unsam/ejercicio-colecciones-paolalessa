@@ -13,9 +13,9 @@ object rolando {
 	
 	method encuentrosArtefactos() = encuentrosArtefactos
 	
-	method todosLosArtefactos() = artefactos + lugarAlmacenamiento.artefactos()
+	method posesiones() = artefactos + lugarAlmacenamiento.artefactos()
 	
-	method posee(artefacto) = artefactos.contains(artefacto)
+	method posee(artefacto) = self.posesiones().contains(artefacto)
 	
 	method agarrar(artefacto){
 		if (artefactos.size() < limiteArtefactos){
@@ -28,8 +28,9 @@ object rolando {
 		self.agarrar(artefactos)
 	}
 	
-	method irA(lugar){
-		lugar.llega(self)
+	method volverACasa(){
+		lugarAlmacenamiento.guardar(artefactos)
+		artefactos.clear()
 	}
 }
 
@@ -55,8 +56,7 @@ object castilloDePiedra{
 	
 	method artefactos() = artefactos
 	
-	method llega(persona){
-		artefactos.addAll(persona.artefactos())
-		persona.artefactos().clear()
+	method guardar(_artefactos){
+		artefactos.addAll(_artefactos)
 	}
 }
