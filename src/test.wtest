@@ -1,17 +1,76 @@
 import capos.*
 
 test "encontrar artefactos" {
+
+	rolando.agarrar(espadaDelDestino)
+	rolando.agarrar(libroDeHechizos)
+	rolando.agarrar(collarDivino)
 	
+	assert.that(rolando.artefactos().contains(espadaDelDestino))
+	assert.that(rolando.artefactos().contains(libroDeHechizos))
+	assert.notThat(rolando.artefactos().contains(collarDivino))
+
 }
 
 test "castillo" {
+	
+	rolando.agarrar(espadaDelDestino)
+	rolando.agarrar(libroDeHechizos)
+	
+	assert.that(rolando.artefactos().contains(espadaDelDestino))
+	assert.that(rolando.artefactos().contains(libroDeHechizos))
+	
+	rolando.irA(castilloDePiedra)
+	
+	assert.notThat(rolando.artefactos().contains(espadaDelDestino))
+	assert.notThat(rolando.artefactos().contains(libroDeHechizos))
+	
+	rolando.agarrar(collarDivino)
+	
+	assert.that(rolando.artefactos().contains(collarDivino))
+	
+	rolando.irA(castilloDePiedra)
+	
+	assert.notThat(rolando.artefactos().contains(collarDivino))
+	
+	//Artefactos Castillo De Piedra
+	assert.that(castilloDePiedra.artefactos().contains(espadaDelDestino))
+	assert.that(castilloDePiedra.artefactos().contains(libroDeHechizos))
+	assert.that(castilloDePiedra.artefactos().contains(collarDivino))
 	
 }
 
 test "posesiones" {
 	
+	rolando.agarrar(collarDivino)
+	rolando.agarrar(libroDeHechizos)
+	rolando.irA(castilloDePiedra)
+	rolando.agarrar(armaduraDeAceroValyrio)
+	
+	assert.that(rolando.todosLosArtefactos().contains(collarDivino))
+	assert.that(rolando.todosLosArtefactos().contains(libroDeHechizos))
+	assert.that(rolando.todosLosArtefactos().contains(armaduraDeAceroValyrio))
+	
+	//Artefactos del castillo
+	assert.that(castilloDePiedra.artefactos().contains(collarDivino))
+	assert.that(castilloDePiedra.artefactos().contains(libroDeHechizos))
+	
+	//Artefactos de Rolando
+	assert.that(rolando.posee(armaduraDeAceroValyrio))
+	
 }
 
 test "historia" {
+	
+	rolando.encontrar(espadaDelDestino)
+	rolando.encontrar(libroDeHechizos)
+	rolando.encontrar(collarDivino)
+	
+	rolando.irA(castilloDePiedra)
+	
+	rolando.encontrar(armaduraDeAceroValyrio)
+	rolando.encontrar(collarDivino)
+	
+	assert.equals([espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAceroValyrio, collarDivino], rolando.encuentrosArtefactos())
 	
 }
